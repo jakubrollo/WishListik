@@ -26,14 +26,24 @@ namespace WishListik
 
             BindingContext = this;
 
-            LoadItems();
+            if (IsUserAuthenticated())
+            {
+                LoadItems();
+            }
+            else
+            {
+                Application.Current.MainPage = new LoginPage();
+            }
         }
 
         private async void LoadItems()
         {
             try
             {
-                var response = await _httpClient.GetStringAsync("https://10.0.2.2:7191/api/items");
+
+
+                var response = await _httpClient.GetStringAsync("https://2052-185-224-112-65.ngrok-free.app/api/items");
+                //var response = await _httpClient.GetStringAsync("https://10.0.2.2:7191/api/items");
                 //var response = await _httpClient.GetStringAsync("https://localhost:7191/api/items");
 
                 var items = JsonSerializer.Deserialize<List<Item>>(response);
@@ -47,6 +57,11 @@ namespace WishListik
             {
                 await DisplayAlert("Error", $"Unable to load items: {ex.Message}", "OK");
             }
+        }
+
+        private bool IsUserAuthenticated()
+        {
+            return true; // Placeholder
         }
     }
 }

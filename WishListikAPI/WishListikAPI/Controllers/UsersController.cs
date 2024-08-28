@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using WishListikAPI.Data;
 using WishListik.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WishListikAPI.Controllers
 {
@@ -10,10 +12,12 @@ namespace WishListikAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserService _userService;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context, UserService userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: api/Users
@@ -23,18 +27,50 @@ namespace WishListikAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Users/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [Authorize]
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var googleID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userID = await _userService.GetInternalUserIdAsync(googleID);
 
-            if (user == null)
+            if (userID != id)
+            {
+                return Forbid();
+            }
+
+            var userData = await _context.Users.Where(u => u.UserId == id)
+                                               .FirstOrDefaultAsync();
+
+            if (userData == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return Ok(userData);
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userIDClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIDClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userID = int.Parse(userIDClaim.Value);
+
+            var userData = await _context.Users.Where(u => u.UserId == userID)
+                                               .FirstOrDefaultAsync();
+
+            if (userData == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userData);
         }
 
         // POST: api/Users

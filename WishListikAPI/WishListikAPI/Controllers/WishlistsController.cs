@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using WishListikAPI.Data;
 using WishListik.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WishListikAPI.Controllers
 {
@@ -47,6 +49,30 @@ namespace WishListikAPI.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetWishlist), new { id = wishlist.WishlistId }, wishlist);
+        }
+
+        // GET: api/Wishlists/me
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ActionResult<Wishlist>> GetMyWishlist()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized(); 
+            }
+
+            var wishlist = await _context.Wishlists
+                                         .Include(w => w.ItemsInWishlist)
+                                         .ThenInclude(iw => iw.Item)
+                                         .FirstOrDefaultAsync(w => w.WishlistId == int.Parse(userId)); 
+
+            if (wishlist == null)
+            {
+                return NotFound();
+            }
+
+            return wishlist;
         }
     }
 

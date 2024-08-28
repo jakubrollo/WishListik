@@ -11,6 +11,8 @@
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<UserMapping> UserMappings { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemInWishlist> ItemsInWishlists { get; set; }
@@ -35,6 +37,14 @@
                 .WithMany()
                 .HasForeignKey(f => f.UserId2)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserMapping>()
+            .HasKey(um => um.GoogleUserId);
+
+            modelBuilder.Entity<UserMapping>()
+                .HasOne(um => um.User)
+                .WithMany()
+                .HasForeignKey(um => um.UserId);
 
             base.OnModelCreating(modelBuilder);
         }

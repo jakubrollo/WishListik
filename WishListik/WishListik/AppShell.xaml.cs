@@ -6,8 +6,8 @@
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("FriendsPage", typeof(FriendsPage));
-            Routing.RegisterRoute("UserPage", typeof(UserPage));
+            Routing.RegisterRoute(nameof(FriendsPage), typeof(FriendsPage));
+            Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
         }
     }
 }
