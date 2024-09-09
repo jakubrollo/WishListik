@@ -11,76 +11,55 @@ namespace WishListikAPI.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserService _userService;
+        private readonly ApplicationDbContext _context; // Database context for accessing user data
 
-        public UsersController(ApplicationDbContext context, UserService userService)
+        // Constructor to initialize the controller with the database context
+        public UsersController(ApplicationDbContext context)
         {
             _context = context;
-            _userService = userService;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        [Authorize]
-        public async Task<IActionResult> GetUser(int id)
-        {
-            var googleID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userID = await _userService.GetInternalUserIdAsync(googleID);
-
-            if (userID != id)
-            {
-                return Forbid();
-            }
-
-            var userData = await _context.Users.Where(u => u.UserId == id)
-                                               .FirstOrDefaultAsync();
-
-            if (userData == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userData);
-        }
-
+        // GET: api/Users/me
         [HttpGet("me")]
         [Authorize]
         public async Task<IActionResult> GetCurrentUser()
         {
+            // Retrieve the current user's ID from the claims
             var userIDClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIDClaim == null)
             {
-                return Unauthorized();
+                return Unauthorized(); // Return 401 if the user ID claim is missing
             }
 
             var userID = int.Parse(userIDClaim.Value);
 
-            var userData = await _context.Users.Where(u => u.UserId == userID)
-                                               .FirstOrDefaultAsync();
+            // Fetch the user data from the database
+            var userData = await _context.Users
+                .Where(u => u.UserId == userID)
+                .FirstOrDefaultAsync();
 
             if (userData == null)
             {
-                return NotFound();
+                return NotFound(); // Return 404 if the user is not found
             }
 
-            return Ok(userData);
+            return Ok(userData); // Return the user data as a 200 OK response
         }
 
-        // POST: api/Users
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        // GET: api/Users/me/id
+        [HttpGet("me/id")]
+        [Authorize]
+        public IActionResult GetCurrentUserId()
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            // Retrieve the current user's ID from the claims
+            var userIDClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIDClaim == null)
+            {
+                return Unauthorized(); // Return 401 if the user ID claim is missing
+            }
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
+            var userID = int.Parse(userIDClaim.Value);
+            return Ok(userID); // Return the user ID as a 200 OK response
         }
     }
 }

@@ -40,10 +40,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+   		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#DECADE" ForegroundScale="0.8" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="DECADE" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -54,6 +54,14 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="LoginPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\values\styles.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,17 +78,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="FriendRequestsPage.xaml.cs">
+	    <DependentUpon>FriendRequestsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="FriendWishlistPage.xaml.cs">
 	    <DependentUpon>FriendWishlistPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="LoginPage.xaml.cs">
+	  <Compile Update="LoginPage.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="LoadingPage.xaml.cs">
+	    <DependentUpon>LoadingPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="MainPage.xaml.cs">
 	    <DependentUpon>MainPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="FriendsPage.xaml.cs">
-	    <DependentUpon>FriendsPage.xaml</DependentUpon>
+	  <Compile Update="AddedFriendsPage.xaml.cs">
+	    <DependentUpon>AddedFriendsPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="MainPage.xaml.cs">
 	    <DependentUpon>MainPage.xaml</DependentUpon>
@@ -91,13 +105,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="FriendRequestsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="FriendWishlistPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AddedFriendsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FriendsPage.xaml">
+	  <MauiXaml Update="LoadingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UserPage.xaml">

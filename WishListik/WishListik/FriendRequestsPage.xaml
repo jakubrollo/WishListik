@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WishListik.FriendRequestsPage"
+             Title="Friend Requests">
+    <StackLayout Padding="20" Spacing="10">
+        <!-- Search bar for entering friend's ID -->
+        <SearchBar x:Name="FriendIdSearchBar" 
+                   Placeholder="Enter Friend's ID" 
+                   Keyboard="Numeric"
+                   VerticalOptions="Start" />
+
+        <!-- Button to send friend request -->
+        <Button Text="Send Friend Request" 
+                Clicked="OnSendFriendRequestClicked"
+                VerticalOptions="Start" />
+
+        <!-- RefreshView wrapping CollectionView for pull-to-refresh functionality -->
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <CollectionView x:Name="FriendRequestsListView"
+                            ItemsSource="{Binding FriendRequests}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" Spacing="10">
+                            <Label Text="{Binding Requester.UserName}"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium" />
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Button Text="Accept" 
+                                        Clicked="OnAcceptFriendRequestClicked" 
+                                        HorizontalOptions="StartAndExpand"/>
+                                <Button Text="Decline" 
+                                        Clicked="OnDeclineFriendRequestClicked" 
+                                        HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>

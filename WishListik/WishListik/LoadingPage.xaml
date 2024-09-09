@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WishListik.LoadingPage">
+
+    <ContentPage.Content>
+        <Grid>
+            <!-- Define rows for the grid layout -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Height for the text -->
+                <RowDefinition Height="*"/>
+                <!-- Fill remaining space for the GIF -->
+            </Grid.RowDefinitions>
+
+            <!-- Loading Text -->
+            <Label x:Name="LoadingLabel"
+                   Text="Loading..."
+                   Grid.Row="0" 
+                VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="24"
+                   BackgroundColor="Transparent"/>
+
+                <!-- GIF Image -->
+                <Image Source="loading.gif"
+                   IsAnimationPlaying="True"
+                   Grid.Row="1" 
+                    Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

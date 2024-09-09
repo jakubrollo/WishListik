@@ -4,19 +4,44 @@
              x:Class="WishListik.MainPage">
 
     <StackLayout Padding="10">
-        <CollectionView ItemsSource="{Binding Items}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10" Margin="5" BorderColor="LightGray">
-                        <StackLayout>
-                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" />
-                            <Label Text="{Binding Description}" FontSize="Small" TextColor="Gray" />
-                            <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="Small" TextColor="Green" />
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BorderColor="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Spacing="10">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" />
+                                    <Label Text="{Binding Description}" FontSize="Small" TextColor="Gray" />
+                                    <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="Small" TextColor="Green" />
+                                </StackLayout>
+                                <Button Grid.Column="1"
+                                    Text="Add"
+                                    Clicked="OnAddButtonClicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#aef68d"
+                                    TextColor="#242424"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Button Text="Add New"
+           Clicked="OnAddItemButtonClicked"
+           BackgroundColor="DarkOrange"
+           TextColor="White"
+           CornerRadius="25"
+           WidthRequest="100"
+           HeightRequest="50"/>
     </StackLayout>
 
 </ContentPage>

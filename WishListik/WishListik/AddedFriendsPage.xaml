@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WishListik.AddedFriendsPage"
+             Title="Added Friends">
+
+    <Grid Padding="20" RowDefinitions="Auto,*" ColumnDefinitions="*">
+
+        <!-- Navigation Button -->
+        <Button Text="Go to Friend Requests"
+                Clicked="OnFriendRequestsButtonClicked"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="25"
+                HeightRequest="50"
+                WidthRequest="200"
+                HorizontalOptions="Center"
+                Grid.Row="0" />
+
+        <!-- List of Added Friends -->
+        <ListView x:Name="FriendsListView"
+                  ItemsSource="{Binding Friends}"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}"
+                  ItemSelected="OnFriendSelected"
+                  HasUnevenRows="True"
+                  Grid.Row="1"
+                  VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10" Spacing="10">
+                            <Label Text="{Binding UserName}" 
+                                   VerticalOptions="CenterAndExpand"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Button Text="Unfriend" 
+                                    Clicked="OnUnfriendButtonClicked" 
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

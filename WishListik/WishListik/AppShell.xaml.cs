@@ -6,7 +6,11 @@
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(FriendsPage), typeof(FriendsPage));
+            // Register routes for navigation
+            // Allows navigation to AddedFriendsPage using its route name
+            Routing.RegisterRoute(nameof(AddedFriendsPage), typeof(AddedFriendsPage));
+
+            // Allows navigation to UserPage using its route name
             Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
         }
     }

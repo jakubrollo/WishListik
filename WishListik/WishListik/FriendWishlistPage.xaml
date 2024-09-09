@@ -1,21 +1,55 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WishListik"
              x:Class="WishListik.FriendWishlistPage"
              Title="Friend's Wishlist">
-    <VerticalStackLayout Padding="20">
+
+    <StackLayout Padding="20">
         <Label 
             x:Name="WishlistNameLabel"
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <ListView x:Name="ItemsListView">
+        <ListView x:Name="ItemsListView"
+                  HasUnevenRows="True"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding ItemName}" Detail="{Binding IsTaken}" />
+                    <ViewCell>
+                        <Grid Padding="10" ColumnSpacing="10">
+                            <!-- Define two columns: one for text and one for the checkbox -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <!-- Text takes up available space -->
+                                <ColumnDefinition Width="50" />
+                                <!-- Fixed width for the checkbox -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Stack the item details in the first column -->
+                            <StackLayout Grid.Column="0" Spacing="5">
+                                <Label Text="{Binding Item.Name}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding Item.Description}" FontSize="14"/>
+                                <Label Text="{Binding Item.Price, StringFormat='Price: {0:C}'}" FontSize="14"/>
+                                <Label x:Name="UserNamesLabel" FontSize="14" LineBreakMode="WordWrap" MaxLines="0"/>
+                            </StackLayout>
+
+                            <!-- CheckBox goes in the second column -->
+                            <CheckBox x:Name="ReservedCheckBox" 
+                                      Grid.Column="1"
+                                      Scale="2"
+                                      WidthRequest="70" 
+                                      HeightRequest="70"
+                                      HorizontalOptions="End"
+                                      VerticalOptions="Center"
+                                      CheckedChanged="OnCheckBoxCheckedChanged"/>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

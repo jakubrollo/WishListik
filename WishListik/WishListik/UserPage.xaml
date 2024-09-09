@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WishListik.UserPage"
              Title="User Page">
-    <VerticalStackLayout Padding="20">
+    <StackLayout Padding="20">
+
         <Label 
             x:Name="UserNameLabel"
             Text=""
@@ -19,27 +20,50 @@
             HorizontalOptions="Center" />
 
         <Label 
-            x:Name="RegistrationDateLabel"
+            x:Name="UserIdLabel"
             Text=""
             FontSize="18"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
         <!-- CollectionView for displaying wishlist items -->
-        <CollectionView x:Name="WishlistItemsCollectionView"
-                        ItemsSource="{Binding WishlistItems}"
-                        SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BorderColor="Gray" Margin="5">
-                        <VerticalStackLayout Padding="10">
-                            <Label Text="{Binding Item.Name}" FontSize="18"/>
-                            <Label Text="{Binding Item.Description}" FontSize="14"/>
-                            <Label Text="{Binding IsTaken, StringFormat='Status: {0}'}" FontSize="14"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+            <CollectionView x:Name="WishlistItemsCollectionView"
+                            ItemsSource="{Binding WishlistItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Margin="5">
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="5" WidthRequest="200">
+                                    <Label Text="{Binding Item.Name}" FontSize="18"/>
+                                    <Label Text="{Binding Item.Description}" FontSize="14"/>
+                                </VerticalStackLayout>
+                                <Button Text="Delete"
+                                        Clicked="OnDeleteButtonClicked"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Sign-Out Button -->
+        <Button Text="Sign Out"
+                Clicked="OnSignOutButtonClicked"
+                BackgroundColor="Red"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="25"
+                HeightRequest="50"
+                WidthRequest="200"
+                HorizontalOptions="Center"
+                VerticalOptions="End" />
+
+    </StackLayout>
 </ContentPage>
