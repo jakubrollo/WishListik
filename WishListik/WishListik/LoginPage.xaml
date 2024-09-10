@@ -4,6 +4,7 @@
              x:Class="WishListik.LoginPage">
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <!-- Login Button -->
         <Button Text="Login with Google"
                 Clicked="OnLoginButtonClicked"
                 HorizontalOptions="Center" />

@@ -4,22 +4,29 @@
              x:Class="WishListik.MainPage">
 
     <StackLayout Padding="10">
+        <!-- CollectionView displays a scrollable list of items with refreshing -->
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
              Command="{Binding RefreshCommand}">
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
+                    <!-- Template for each item in the CollectionView -->
                     <DataTemplate>
                         <Frame Padding="10" Margin="5" BorderColor="LightGray">
                             <Grid>
+                                <!-- Define the layout of the Grid with two columns -->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+                                
+                                <!-- StackLayout for displaying item details -->
                                 <StackLayout Grid.Column="0" Spacing="10">
                                     <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" />
                                     <Label Text="{Binding Description}" FontSize="Small" TextColor="Gray" />
                                     <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="Small" TextColor="Green" />
                                 </StackLayout>
+
+                                <!-- Button to add the item, with a command parameter for the item -->
                                 <Button Grid.Column="1"
                                     Text="Add"
                                     Clicked="OnAddButtonClicked"
@@ -35,6 +42,7 @@
             </CollectionView>
         </RefreshView>
 
+        <!-- Button to add a new item to the list -->
         <Button Text="Add New"
            Clicked="OnAddItemButtonClicked"
            BackgroundColor="DarkOrange"

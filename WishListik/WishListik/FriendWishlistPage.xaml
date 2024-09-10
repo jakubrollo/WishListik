@@ -12,6 +12,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+        <!-- List with wishlisted items of a specific friend with refresh -->
         <ListView x:Name="ItemsListView"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
