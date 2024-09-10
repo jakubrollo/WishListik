@@ -17,6 +17,12 @@ The API supports authentication using JWT Bearer tokens. For Google authenticati
 - **Access Token:** Used for authorizing requests to the API. It has a limited lifespan and must be included in the `Authorization` header of requests.
 - **Refresh Token:** Used to obtain a new access token when the current one expires. It is exchanged at the `/Account/refresh` endpoint for a new access token.
 
+- I gained inspiration and used some code from these sites:
+[medium.com](https://medium.com/@KumarHalder/token-based-authentication-in-asp-net-core-43e99aee0593)
+[code-maze.com](https://code-maze.com/using-refresh-tokens-in-asp-net-core-authentication/)
+[example code of en/decryption](https://gist.github.com/mark-adams/87aa34da3a5ed48ed0c7?permalink_comment_id=2961539)
+
+
 ## Endpoints
 
 ### Account
