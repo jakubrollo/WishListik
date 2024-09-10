@@ -60,4 +60,4 @@ Represents a user's wishlist.
 - Navigation properties: `User`, `ItemsInWishlist`.
 
 ## Purpose
-The models in this project are used to define the structure of the data stored in the **Microsoft SQL Server** database, and they serve as the basis for interactions between the **WishListik** app and the **WishListikAPI**. Each model corresponds to a SQL table, and relationships are defined via navigation properties.
+The models in this project are used to define the structure of the data stored in the **SQL** database, and they serve as the basis for interactions between the **WishListik** app and the **WishListikAPI**. Each model corresponds to a SQL table, and relationships are defined via navigation properties.

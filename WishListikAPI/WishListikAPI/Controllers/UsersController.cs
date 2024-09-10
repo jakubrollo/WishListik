@@ -12,7 +12,6 @@ namespace WishListikAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context; // Database context for accessing user data
-
         // Constructor to initialize the controller with the database context
         public UsersController(ApplicationDbContext context)
         {

@@ -60,7 +60,7 @@ namespace WishListikAPI.Data
                 refreshToken = Convert.ToBase64String(randomNumber); // Base64 encode the token
             }
 
-            var encryptedRefreshToken = Encrypt(refreshToken); // Encrypt the refresh token
+            var encryptedRefreshToken = refreshToken; //Encrypt(refreshToken); // Encrypt the refresh token
             SaveEncryptedRefreshToken(userId, encryptedRefreshToken); // Save the encrypted token to the database
 
             return refreshToken; // Return the unencrypted token to the client
@@ -93,7 +93,8 @@ namespace WishListikAPI.Data
 
             _context.SaveChanges(); // Commit the changes to the database
         }
-
+        // Currently not used
+        //
         // Encrypts a string
         public string Encrypt(string plainText)
         {

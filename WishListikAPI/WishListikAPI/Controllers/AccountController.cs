@@ -37,7 +37,7 @@ namespace WishListikAPI.Controllers
             return Challenge(props, GoogleDefaults.AuthenticationScheme);
         }
 
-        // Endpoint to handle the Google login callback
+        // Endpoint to handle the Google login callback (has to stay like this -> Google policy)
         [HttpGet("signin-google")]
         public async Task<IActionResult> GoogleLogin()
         {
@@ -78,7 +78,7 @@ namespace WishListikAPI.Controllers
         public IActionResult Refresh([FromBody] string refreshToken)
         {
             // Encrypt the provided refresh token
-            var encryptedRefreshToken = _tokenService.Encrypt(refreshToken);
+            var encryptedRefreshToken = refreshToken; // _tokenService.Encrypt(refreshToken);
 
             // Look up the encrypted token in the database
             var storedToken = _context.RefreshTokens

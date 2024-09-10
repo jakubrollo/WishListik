@@ -50,7 +50,7 @@ namespace WishListikAPI.Controllers
         [Authorize]
         public async Task<IActionResult> AddItemToWishlist([FromBody] int itemId)
         {
-            // Retrieve the current user's ID from the claims
+            // Retrieve the current user's ID from the claims in the access token
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
