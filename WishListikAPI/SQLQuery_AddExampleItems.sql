@@ -1,0 +1,20 @@
+﻿INSERT INTO Items (Name, Description, Price)
+VALUES 
+    ('Smartphone', 'Latest model with high resolution camera', 799.99),
+    ('Smartwatch', 'Fitness tracking and notifications on your wrist', 249.99),
+    ('Tablet', 'Portable tablet with high-definition display', 349.99),
+    ('Wireless Mouse', 'Ergonomic wireless mouse with long battery life', 49.99),
+    ('Keyboard', 'Mechanical keyboard with customizable backlighting', 89.99),
+    ('External Hard Drive', '1TB external hard drive for additional storage', 119.99),
+    ('USB Flash Drive', '16GB USB flash drive for portable data', 15.99),
+    ('Bluetooth Speaker', 'Portable speaker with Bluetooth connectivity', 129.99),
+    ('Gaming Console', 'Next-gen gaming console with 4K support', 499.99),
+    ('Smart TV', '55-inch Smart TV with 4K resolution', 649.99),
+    ('Digital Camera', 'High-resolution digital camera for photography enthusiasts', 599.99),
+    ('Drone', 'Quadcopter drone with HD camera', 399.99),
+    ('VR Headset', 'Virtual reality headset for immersive experiences', 299.99),
+    ('Electric Scooter', 'Foldable electric scooter with high speed', 359.99),
+    ('Coffee Maker', 'Programmable coffee maker with auto-shutoff feature', 89.99),
+    ('Air Purifier', 'Air purifier with HEPA filter for cleaner air', 199.99),
+    ('Blender', 'High-performance blender for smoothies and more', 129.99),
+    ('Toaster', 'Two-slice toaster with adjustable browning control', 49.99);

@@ -1,2 +1,0 @@
-﻿INSERT INTO UserMappings (GoogleUserId,UserId)
-VALUES ('102293702878462411242', 2);
