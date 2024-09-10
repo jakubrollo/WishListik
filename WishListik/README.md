@@ -83,5 +83,5 @@ To run this application locally:
 - I used icons for the navigation tab from this website. [ionic](https://ionic.io/ionicons)
 - The logo was created by me (Jakub Rollo).
 
-(The loading gif was also created by much younger (16/17yo) me, when I played around with GANs (Ganbreeder). I followed this [tutorial](https://www.youtube.com/watch?v=LR5f3-5vB_U&ab_channel=BenMarriott)
+(The loading gif was also created by much younger (16/17yo) me, when I played around with GANs (Ganbreeder). I followed this [tutorial](https://www.youtube.com/watch?v=LR5f3-5vB_U&ab_channel=BenMarriott) )
 
